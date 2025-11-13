@@ -1,0 +1,26 @@
+﻿<!doctype html>
+<meta charset="utf-8">
+<title>결과 - {{ draw.name }}</title>
+<h2>결과 - {{ draw.name }}</h2>
+<p>당첨번호: <strong>{{ draw.numbers }}</strong> · 상태: {{ draw.is_closed|yesno:"마감,진행중" }}</p>
+
+<table border="1" cellpadding="6">
+    <tr><th>주문ID</th><th>사용자</th><th>선택번호</th><th>일치</th><th>등수</th><th>상금</th></tr>
+    {% for o in orders %}
+    <tr>
+        <td>{{ o.id }}</td>
+        <td>{{ o.user.username }}</td>
+        <td>{{ o.numbers }}</td>
+        <td>{{ o.matched|default:"-" }}</td>
+        <td>{{ o.rank|default:"-" }}</td>
+        <td>{{ o.prize|default:"-" }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="6">주문 내역이 없습니다.</td></tr>
+    {% endfor %}
+</table>
+
+<p><a href="{% url 'lotto:index' %}">← 홈으로</a></p>
+{% if user.is_staff %}
+<p><a href="{% url 'lotto:rejudge_draw' draw.id %}">[관리자] 재채점</a></p>
+{% endif %}

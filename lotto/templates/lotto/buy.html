@@ -1,0 +1,19 @@
+﻿<!doctype html>
+<meta charset="utf-8">
+<title>구매 - {{ draw.name }}</title>
+<h2>구매 - {{ draw.name }}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <p>
+        <label><input type="radio" name="mode" value="auto" checked> 자동</label>
+        <label><input type="radio" name="mode" value="manual"> 수동</label>
+    </p>
+    <p>
+        <input name="numbers" placeholder="예: 1, 7, 12, 22, 33, 45" style="width:280px">
+        <small>수동 선택 시만 사용 (6개, 1–45, 중복없음)</small>
+    </p>
+    <button type="submit">구매</button>
+</form>
+
+<p><a href="{% url 'lotto:index' %}">← 홈으로</a></p>

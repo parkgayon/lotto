@@ -1,0 +1,27 @@
+﻿<!doctype html>
+<meta charset="utf-8">
+<title>내 주문</title>
+<h2>내 주문</h2>
+
+<table border="1" cellpadding="6">
+    <tr><th>주문ID</th><th>회차</th><th>번호</th><th>일치</th><th>등수</th><th>상금</th></tr>
+    {% for o in orders %}
+    <tr>
+        <td>{{ o.id }}</td>
+        <td>
+            {{ o.draw.name }}
+            {% if o.draw.is_closed and o.draw.numbers %}
+            (<a href="{% url 'lotto:draw_result' o.draw.id %}">결과</a>)
+            {% endif %}
+        </td>
+        <td>{{ o.numbers }}</td>
+        <td>{{ o.matched|default:"-" }}</td>
+        <td>{{ o.rank|default:"-" }}</td>
+        <td>{{ o.prize|default:"-" }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="6">구매 내역이 없습니다.</td></tr>
+    {% endfor %}
+</table>
+
+<p><a href="{% url 'lotto:index' %}">← 홈으로</a></p>

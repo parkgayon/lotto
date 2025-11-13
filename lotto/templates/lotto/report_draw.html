@@ -1,0 +1,38 @@
+﻿<!doctype html>
+<meta charset="utf-8">
+<title>회차 리포트 - {{ draw.name }}</title>
+<h2>회차 리포트 - {{ draw.name }}</h2>
+<p>당첨번호: <strong>{{ draw.numbers|default:"-" }}</strong> · 상태: {{ draw.is_closed|yesno:"마감,진행중" }}</p>
+<p>
+    전체 주문: <strong>{{ total_cnt }}</strong> 건 · 총 상금: <strong>{{ total_prize }}</strong> 원
+    · <a href="{% url 'lotto:report_draw_export_csv' draw.id %}">CSV 내보내기</a>
+</p>
+
+<h3>등수별 집계</h3>
+<table border="1" cellpadding="6">
+    <tr><th>등수</th><th>건수</th><th>합계 상금</th></tr>
+    {% for r in by_rank %}
+    <tr>
+        <td>{{ r.rank|default:"-" }}</td>
+        <td>{{ r.cnt }}</td>
+        <td>{{ r.sum_prize|default:0 }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="3">데이터 없음</td></tr>
+    {% endfor %}
+</table>
+
+<h3>자동/수동 비율</h3>
+<table border="1" cellpadding="6">
+    <tr><th>유형</th><th>건수</th></tr>
+    {% for a in by_auto %}
+    <tr>
+        <td>{{ a.is_auto|yesno:"자동,수동" }}</td>
+        <td>{{ a.cnt }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="2">데이터 없음</td></tr>
+    {% endfor %}
+</table>
+
+<p><a href="{% url 'lotto:index' %}">← 홈으로</a></p>

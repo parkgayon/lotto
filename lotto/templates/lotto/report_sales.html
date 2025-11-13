@@ -1,0 +1,21 @@
+﻿<!doctype html>
+<meta charset="utf-8">
+<title>판매 리포트 요약</title>
+<h2>판매 리포트 요약(최근 10개 회차)</h2>
+
+<table border="1" cellpadding="6">
+    <tr><th>회차</th><th>주문수</th><th>당첨건수</th><th>총 상금</th><th>상세</th></tr>
+    {% for row in rows %}
+    <tr>
+        <td>{{ row.draw.name }}</td>
+        <td>{{ row.orders }}</td>
+        <td>{{ row.winners }}</td>
+        <td>{{ row.sum_prize }}</td>
+        <td><a href="{% url 'lotto:report_draw' row.draw.id %}">보기</a></td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5">데이터 없음</td></tr>
+    {% endfor %}
+</table>
+
+<p><a href="{% url 'lotto:index' %}">← 홈으로</a></p>

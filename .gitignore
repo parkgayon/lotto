@@ -1,0 +1,36 @@
+﻿# Python / Django
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.log
+*.pot
+*.pyc
+
+# Django artifacts
+/media/
+staticfiles/
+.env
+.env.*
+*.env
+
+# VS / IDE
+.vs/
+.idea/
+.vscode/
+
+# Virtual env
+.venv/
+env/
+venv/
+
+# Docker
+*.pid
+*.tar
+*.log
+*.tmp
+*.bak
+**/node_modules/
+
+# OS
+.DS_Store
+Thumbs.db

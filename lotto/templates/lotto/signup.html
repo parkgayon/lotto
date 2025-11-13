@@ -1,0 +1,10 @@
+﻿<!doctype html>
+<meta charset="utf-8">
+<title>회원가입</title>
+<h2>회원가입</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">가입</button>
+</form>
+<p><a href="/accounts/login/">로그인</a></p>
