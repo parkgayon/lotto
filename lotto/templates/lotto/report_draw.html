@@ -5,7 +5,7 @@
 <p>당첨번호: <strong>{{ draw.numbers|default:"-" }}</strong> · 상태: {{ draw.is_closed|yesno:"마감,진행중" }}</p>
 <p>
     전체 주문: <strong>{{ total_cnt }}</strong> 건 · 총 상금: <strong>{{ total_prize }}</strong> 원
-    · <a href="{% url 'lotto:report_draw_export_csv' draw.id %}">CSV 내보내기</a>
+ </a>
 </p>
 
 <h3>등수별 집계</h3>

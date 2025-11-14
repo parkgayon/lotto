@@ -6,10 +6,8 @@ from django.contrib.auth import login
 from django.db import transaction
 from django.db.models import Count, Sum
 from django.http import HttpResponse
-
 from .models import Draw, Order
 from .services import gen_auto_numbers, judge, parse_numbers
-
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect
@@ -17,6 +15,13 @@ from .models import Draw, Order
 from .services import judge
 
 from django.contrib.auth import logout as auth_logout   
+from django.contrib.admin.views.decorators import staff_member_required
+from django.shortcuts import get_object_or_404, render
+from .models import Draw, Order
+from django.shortcuts import render, get_object_or_404
+from django.contrib.admin.views.decorators import staff_member_required
+from .models import Draw, Order
+
 
 def index(request):
     ctx = {
@@ -150,3 +155,20 @@ def rejudge_draw(request, draw_id):
         o.rank, o.matched, o.prize = rank, matched, prize
         o.save(update_fields=["rank", "matched", "prize"])
     return redirect("lotto:draw_result", draw_id=draw.id)
+
+@staff_member_required
+def winners_draw(request, pk):
+    draw = get_object_or_404(Draw, pk=pk)
+
+    winners = (
+        Order.objects
+        .filter(draw=draw, prize__gt=0)
+        .select_related("user")
+        .order_by("rank", "-prize", "-matched", "id")
+    )
+    return render(
+        request,
+        "lotto/winners_draw.html",    
+        {"draw": draw, "orders": winners},
+    )
+

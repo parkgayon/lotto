@@ -9,6 +9,8 @@
     <a href="{% url 'lotto:my_orders' %}">내 주문</a>
     {% if user.is_staff %}
     · <a href="{% url 'lotto:report_sales' %}">[관리자] 판매 리포트</a>
+    <a href="{% url 'lotto:winners_draw' last.id %}">당첨자 보기</a>
+
     {% endif %}
 </p>
 {% else %}

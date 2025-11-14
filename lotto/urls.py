@@ -16,6 +16,8 @@ urlpatterns = [
     path("report/sales/", views.report_sales, name="report_sales"),
     path("report/draw/<int:draw_id>/export.csv", views.report_draw_export_csv, name="report_draw_export_csv"),
     path("draw/<int:draw_id>/rejudge/", views.rejudge_draw, name="rejudge_draw"),
+    path("draw/<int:pk>/winners/", views.winners_draw, name="winners_draw"),
 
 ]
+
 
