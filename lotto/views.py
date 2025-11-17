@@ -1,27 +1,18 @@
-﻿from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from django.contrib.admin.views.decorators import staff_member_required
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login
+﻿# 표준/공통 Django 유틸
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse
 from django.db import transaction
 from django.db.models import Count, Sum
-from django.http import HttpResponse
+
+# 인증/권한 관련
+from django.contrib.auth import login, logout as auth_logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.admin.views.decorators import staff_member_required
+
+# 로컬 앱
 from .models import Draw, Order
 from .services import gen_auto_numbers, judge, parse_numbers
-from django.contrib.admin.views.decorators import staff_member_required
-from django.db import transaction
-from django.shortcuts import get_object_or_404, redirect
-from .models import Draw, Order
-from .services import judge
-
-from django.contrib.auth import logout as auth_logout   
-from django.contrib.admin.views.decorators import staff_member_required
-from django.shortcuts import get_object_or_404, render
-from .models import Draw, Order
-from django.shortcuts import render, get_object_or_404
-from django.contrib.admin.views.decorators import staff_member_required
-from .models import Draw, Order
-
 
 def index(request):
     ctx = {

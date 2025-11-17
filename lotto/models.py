@@ -2,6 +2,7 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 
+# 번호 문자열을 정규화/검증하는 유틸 함수
 def normalize_numbers(s: str) -> str:
     import re
     nums = [int(x) for x in re.findall(r"\d+", s)]
@@ -18,6 +19,7 @@ class Draw(models.Model):
     open_at = models.DateTimeField("판매 시작", auto_now_add=True)
     close_at = models.DateTimeField("판매 마감", null=True, blank=True)
     numbers = models.CharField("당첨번호(6개)", max_length=50, validators=[validate_numbers], blank=True, default="")
+    # 회차 마감 여부 플래그
     is_closed = models.BooleanField("마감", default=False)
 
     class Meta:
